@@ -46,12 +46,12 @@ class ResponseChecker():
         self.g = Github(auth=auth)
         self.org = self.g.get_organization("AIEA-Automation-Test-Org")
 #        self.org = self.g.get_organization("aiea-lab")
-        
+
         # token.json stores your user's access and refresh tokens. It is created 
         # automatically when the authorization flow completes for the first time.
         if os.path.exists('token.json'):
             self.creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-            
+
         # If there are no valid credentials available, let the user log in.
         # This isn't working?????
         if not self.creds or not self.creds.valid:
@@ -62,7 +62,7 @@ class ResponseChecker():
                 flow = InstalledAppFlow.from_client_secrets_file(
                     'secrets/client_secrets.json', SCOPES)
                 self.creds = flow.run_local_server(port=8080, open_browser=False)
-                
+
             # Save the credentials for the next run so you don't have to log in every time
             with open('token.json', 'w') as token:
                 token.write(self.creds.to_json())
@@ -84,7 +84,7 @@ class ResponseChecker():
         else:
             print(f"Success! Found {len(responses)} response(s).")
             print("-" * 30)
-                
+
             # Loop through and print the raw JSON of each response
             for response in responses:
                 print(response['lastSubmittedTime'])
